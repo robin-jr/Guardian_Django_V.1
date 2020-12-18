@@ -1,0 +1,33 @@
+<html>
+<body>
+	<link rel="stylesheet" href="croppie.css" />
+    <script src="croppie.js"></script>
+	<div style="border:10px solid black">
+	<img src="/home/user/Guardian_OpenVINO_V.1/final_results (copy)/0000000015_18-10-2020_08:24:21_N02BB5565.jpg" style="max-width:100%;
+max-height:100%"/>
+	</div>
+	<hr>
+	<hr>
+    <div style="border:10px solid black">
+	<img src="/home/user/Guardian_OpenVINO_V.1/final_results (copy)/0000000015_18-10-2020_08:24:21_N02BB5565.jpg" style="position: absolute;clip: rect(0px,200px, 150px, 0px);max-width:100%;max-height:100%"/>
+    </div>
+	<hr>
+	<hr>    
+      <div id="demo-basic">
+  </div>
+  <script>
+  $(function() {
+  var basic = $('#demo-basic').croppie({
+    viewport: {
+      width: 150,
+      height: 200
+    }
+  });
+  basic.croppie('bind', {
+    url: '/home/user/Guardian_OpenVINO_V.1/final_results (copy)/0000000015_18-10-2020_08:24:21_N02BB5565.jpg',
+    points: [77, 469, 280, 739]
+  });
+});
+</script>
+</body>
+</html>

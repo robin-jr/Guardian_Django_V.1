@@ -1,0 +1,12 @@
+{% load static %} {% for lp in licensePlates %}
+<div
+  class="latest"
+  onclick="openFullImage('{% static lp.fullimage %}', '{{lp.number_plate_number}}')"
+>
+  <span id="latestCount" style="display: none;">{{count}}</span>
+  <div class="snap">
+    <img src="{% static lp.image %}" width="100%" height="150px" />
+  </div>
+  <div class="output">{{lp.number_plate_number}}</div>
+</div>
+{% endfor %}
