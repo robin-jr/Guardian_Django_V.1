@@ -3,6 +3,15 @@ import PIL.Image as Image
 #gsettings set org.gnome.desktop.media-handling automount-open false
 import pyudev
 import psutil
+import os
+import logging 
+
+django_dir = os.environ['DJANGOPATH']
+logs_dir = os.environ['LOGSPATH']#"/home/"+str(os.environ.get('USER'))+"/logs/"# Directory to store log files and the log file format
+if not os.path.exists(logs_dir):# Create Directory if it doesn't exist
+    os.makedirs(logs_dir)
+logging.basicConfig(filename=logs_dir+"django.log", level=logging.INFO,
+    format=("%(asctime)s - %(levelname)s:%(process)d:%(processName)s:%(filename)s - Function Name:%(funcName)s - Line No:%(lineno)d - %(message)s  "))
 
 context = pyudev.Context()
 
@@ -26,7 +35,7 @@ def create_excel(filename, contents, headers):
                     # initializing
                     row_index = 0
                     col_index = 0
-                    prefix_path = "/home/user/Django_Anpr-master/anpr/static/"
+                    prefix_path = django_dir + "anpr/static/"
 
                     # writing the headings
                     cell_format = workbook.add_format({"bold": True, "align": "center", "font_size": 15})
@@ -69,3 +78,4 @@ def create_excel(filename, contents, headers):
                     workbook.close()
     else:
         print("Insert USB or Try again") 
+        logging.warning("INSERT USB OR TRY AGAIN")

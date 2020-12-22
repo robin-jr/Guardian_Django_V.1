@@ -11,12 +11,22 @@ from .common.file_utils import create_excel
 from subprocess import Popen
 global camname
 from datetime import datetime
+import logging
+
+
+django_dir = os.environ['DJANGOPATH']#"/home/user/Django_Anpr-master/" # Directory containing Django manage.py
+logs_dir = os.environ['LOGSPATH']#"/home/"+str(os.environ.get('USER'))+"/logs/"# Directory to store log files and the log file format
+if not os.path.exists(logs_dir):# Create Directory if it doesn't exist
+    os.makedirs(logs_dir)
+logging.basicConfig(filename=logs_dir+"django.log", level=logging.INFO,
+    format=("%(asctime)s - %(levelname)s:%(process)d:%(processName)s:%(filename)s - Function Name:%(funcName)s - Line No:%(lineno)d - %(message)s  "))
+
 
 # Create your views here.
-def power_off(request):
-    if request.POST:
-      print("Hey OOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
-    return render(request,'index.html',{})
+#def power_off(request):
+#    if request.POST:
+#      print("Shutting Down")
+#    return render(request,'index.html',{})
 
 def index(request):
     cameraQuerySet = Camera.objects.all()
@@ -122,7 +132,7 @@ def plate_search(request):
             else:
                 #print("error", e.args[0])
                 error = "Oops! Something went wrong."
-
+            logging.error("PLATE SEARCH :"+str(error))
             return render(
                 request, "anpr/plate_search.html", {"error": error, "cameras": cameras,}
             )
@@ -171,6 +181,7 @@ def generate_EXCEL(request):
     except xlsxwriter.exceptions.FileCreateError as e:
         # For Python 3 use input() instead of raw_input().
         #print("Excel Creation Error",str(e))
+        logging.error("EXCEL WRITING ERROR :"+str(e))
         decision = input(
             "Exception caught in workbook.close(): %s\n"
             "Please close the file if it is open in Excel.\n"
@@ -178,6 +189,7 @@ def generate_EXCEL(request):
         )
         return HttpResponseBadRequest(decision)
     except Exception as e:
+        logging.error("EXCEL INVALID DATA ERROR :"+str(e))
         #print("Invalid Filter Data")
         return HttpResponseBadRequest("Invalid Filter Data")
     #print("Excel generated successfully.")
@@ -186,13 +198,13 @@ def generate_EXCEL(request):
     
 #from .mjpg_serve import actualConvert
 def convertRtspToHttp(request,camera):
-    #print("Passed Camera",camera)
-    try:
-        pid.kill()
-        #print("Killed process",pid)
-    except Exception as e:
-        print("Exception while killing",str(e))
-    pid = Popen(['python','/home/user/mountedSDCard/Django_Anpr-master/anpr/mjpg_serve.py',camera])#watch', 'ls'])
+    # #print("Passed Camera",camera)
+    # try:
+    #     pid.kill()
+    #     #print("Killed process",pid)
+    # except Exception as e:
+    #     print("Exception while killing",str(e))
+    pid = Popen(['python',django_dir+'anpr/mjpg_serve.py',camera])#watch', 'ls'])
     #print("Process id",pid)
     #os.system("python /home/user/mountedSDCard/Django_Anpr-master/anpr/mjpg_serve.py")
     #actualConvert(camera)

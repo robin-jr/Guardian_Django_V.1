@@ -19,3 +19,7 @@ DATABASES = {
 Note: The above configuration is for mysql. Config will change wrt DB engine used.
 
 3) Request for the static file zip and replace existing anpr > static folder
+
+## Parameters
+
+1. Latest5 - Refreshes every 2 seconds
