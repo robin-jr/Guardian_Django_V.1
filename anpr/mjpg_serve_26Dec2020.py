@@ -85,7 +85,7 @@ def main(camname):
           #else:    
           #    rtsplink = "rtsp://localhost:8554/ds-test"
           print("MJPG_Serve Camname", camname)
-          rtsplink = camname
+          rtsplink = "rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov"#camname
 	  #capture = cv2.VideoCapture(rtsplink)
 	  
 	  #These lines do not matter
@@ -102,14 +102,14 @@ def main(camname):
               print(pid)
               os.kill(pid, signal.SIGTERM)
           except Exception as e:
-              print("All Existing HTTP Servers killed. Killing Process Exception - ",str(e))
+              print("Killing exception",str(e))
 	  #Sleep for 2 seconds is necessary for HTTP Servers to restart again    
           time.sleep(2)    
 	    
 	  #Starting new HTTP Server for our stream  
           try:
                 server = HTTPServer(('',9090),CamHandler)
-                print ("Server Started") 
+                print ("server started") 
                 server.serve_forever()
           except Exception as e:
                 #capture.release()

@@ -20,6 +20,7 @@ if not os.path.exists(logs_dir):# Create Directory if it doesn't exist
     os.makedirs(logs_dir)
 logging.basicConfig(filename=logs_dir+"django.log", level=logging.INFO,
     format=("%(asctime)s - %(levelname)s:%(process)d:%(processName)s:%(filename)s - Function Name:%(funcName)s - Line No:%(lineno)d - %(message)s  "))
+logging.info("STARTED DJANGO SERVER")
 
 
 # Create your views here.
@@ -204,6 +205,7 @@ def convertRtspToHttp(request,camera):
     #     #print("Killed process",pid)
     # except Exception as e:
     #     print("Exception while killing",str(e))
+    print("Views Camname", camera)
     pid = Popen(['python',django_dir+'anpr/mjpg_serve.py',camera])#watch', 'ls'])
     #print("Process id",pid)
     #os.system("python /home/user/mountedSDCard/Django_Anpr-master/anpr/mjpg_serve.py")
