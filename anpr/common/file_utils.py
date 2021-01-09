@@ -16,7 +16,17 @@ logging.basicConfig(filename=logs_dir+"django.log", level=logging.INFO,
 context = pyudev.Context()
 
 def create_excel(filename, contents, headers):
-    removable = [device for device in context.list_devices(subsystem='block', DEVTYPE='disk') if device.attributes.asstring('removable') == "1"]
+    #removable = [device for device in context.list_devices(subsystem='block', DEVTYPE='disk') if device.attributes.asstring('removable') == "1"]
+    removable = []
+    for device in context.list_devices(subsystem='block', DEVTYPE='disk'):# if device.attributes.asstring('removable') == "1"]
+        try:
+            device_parent = device.parent.device_path
+            if("usb" in device_parent):
+                #print(device.sys_name,device.device_type,device.time_since_initialized,device.parent.device_path)#.attributes.asstring('time_since_initialized'))#)
+                removable.append(device)
+        except Exception as e:
+            print("Exception : ",str(e))
+            continue    
     if(removable):
         for device in removable:
             partitions = [device.device_node for device in context.list_devices(subsystem='block', DEVTYPE='partition', parent=device)]
@@ -63,17 +73,33 @@ def create_excel(filename, contents, headers):
 
                         # writing the image
                         path = prefix_path+row_data["image_path"]
-                        with Image.open(path) as img:
-                            img_width, img_height = img.size
-                            #print("path",path,"img_width", img_width, "img_height", img_height)
-                        x_scale = 30/img_width
-                        y_scale = 100/img_height
-                        print(worksheet.insert_image(row_index,
-                                            col_index + len(data)+1,
-                                            path,
-                                            {"x_scale": x_scale*7.2,
-                                             "y_scale": y_scale*1.5,
-                                             "positioning": 1}))
+                        try:
+                            with Image.open(path) as img:
+                                img_width, img_height = img.size
+                                #print("path",path,"img_width", img_width, "img_height", img_height)
+                            x_scale = 30/img_width
+                            y_scale = 100/img_height
+                            print(worksheet.insert_image(row_index,
+                                                col_index + len(data)+1,
+                                                path,
+                                                {"x_scale": x_scale*7.2,
+                                                 "y_scale": y_scale*1.5,
+                                                 "positioning": 1}))
+                        except Exception as e:
+                            print("Image doesn't exist - "+str(e))
+                            path = prefix_path+"anpr/images/noimage.jpg"
+                            with Image.open(path) as img:
+                                img_width, img_height = img.size
+                                #print("path",path,"img_width", img_width, "img_height", img_height)
+                            x_scale = 30/img_width
+                            y_scale = 100/img_height
+                            print(worksheet.insert_image(row_index,
+                                                col_index + len(data)+1,
+                                                path,
+                                                {"x_scale": x_scale*7.2,
+                                                 "y_scale": y_scale*1.5,
+                                                 "positioning": 1}))
+
                         row_index += 1
                     workbook.close()
     else:

@@ -170,11 +170,11 @@ def generate_EXCEL(request):
         else:
             camera = Camera.objects.get(pk=camera_id)
             camera_name = camera.camera_number
-        filename = "CAMERA---"+camera_name+"---PLATENUMBER---"+form_data['vehicle_no']
+        filename = "Camera-"+camera_name+"-"#+"---PLATENUMBER---"+form_data['vehicle_no']
         if(form_data["start_date_time"]):
-            filename = filename + "---START_TIME---" + datetime.strptime(form_data["start_date_time"], '%Y-%m-%dT%H:%M').strftime("%A-%d%B%Y-%H.%M%p")
+            filename = filename + datetime.strptime(form_data["start_date_time"], '%Y-%m-%dT%H:%M').strftime("%d%b%y-%H.%M")
         if(form_data["end_date_time"]):
-            filename = filename + "---END_TIME---" + datetime.strptime(form_data["end_date_time"], '%Y-%m-%dT%H:%M').strftime("%A-%d%B%Y-%H.%M%p")+ ".xlsx"
+            filename = filename + "-to-" + datetime.strptime(form_data["end_date_time"], '%Y-%m-%dT%H:%M').strftime("%d%b%y-%H.%M")+ ".xlsx"
         else:
             filename = filename + ".xlsx"    
         #print(form_data['vehicle_no']+"_"+camera_name+"_"+form_data["start_date_time"].replace("T","_")+"_"+form_data["end_date_time"].replace("T","_"))

@@ -33,8 +33,8 @@ class Camera(models.Model):
     plate_threshold = models.DecimalField(max_digits=10, decimal_places=1, default=0.5, help_text="Threshold for Plate Detection.")
     character_threshold = models.DecimalField(max_digits=10, decimal_places=1, default=0.5, help_text="Threshold for Character Detection and Recognition.")
     plate_interval = models.IntegerField(default = 4, help_text="Inference Interval for Plate Detection")
-    roi_y = models.IntegerField(default = 540, help_text="ROI_Y")
-    roi_x = models.IntegerField(default = 640, help_text="ROI_X")
+    roi_y = models.IntegerField(default = 540, help_text="ROI_Y value from Top. Ex: 680 for (1920,1080)-> Inference will happen only in (0,1080-680) to (1920,1080-680) = (0,400) to (1920,400)")
+    roi_x = models.IntegerField(default = 640, help_text="ROI_X value from Left. Ex: 920 for (1920,1080)-> Inference will happen only in (920,0) to (1920,0)")
     nireq = models.IntegerField(default = 1, help_text="Number of Inference Requests for plate detection. It is usually the number of streams.")
     video_display = models.BooleanField(default=False, help_text="Tick to turn it on. Enables video display with bounding boxes and FPS for debugging purposes. Remember to disable before Deployment.")
     class Meta:

@@ -266,6 +266,7 @@
           class="form-container"
           action="{% url 'anpr:plate_search' %}"
           method="get"
+          autocomplete="off"
         >
           {%csrf_token%}
           <div class="form-flex-container">
@@ -336,25 +337,25 @@
           </div>
         </form>
         <div class="table-button-container">
-          <div class="table-container">
+          <div class="table-container" style="border: 3px solid black;">
             <table>
               <thead class="fixed-header">
                 <tr>
                   <!--th width="5%">Sl.No</th-->
-                  <th>Camera</th>
-                  <th>Capture Time</th>
-                  <th>Plate Number</th>
-                  <th>Image</th>
+                  <th style="border: 3px solid black;">Camera</th>
+                  <th style="border: 3px solid black;">Capture Time</th>
+                  <th style="border: 3px solid black;">Plate Number</th>
+                  <th style="border: 3px solid black;">Image</th>
                 </tr>
               </thead>
-              <tbody class="scroll-content" style="height:93%">
+              <tbody class="scroll-content" style="height:95%">
                 {% for lp in license_plates %}
                 <tr class="plate-record">
                   <!--td>{{lp.slno}}</td-->
-                  <td style="font-family:Courier;font-size:16px;color:black">{{lp.camera_name}}</td>
-                  <td style="font-family:Courier;font-size:16px;color:black">{{lp.capture_time}}</td>
-                  <td style="font-family:Courier;font-size:16px;color:black">{{lp.plate_number}}</td>
-                  <td>
+                  <td style="font-family:Courier;font-size:19px;color:black;border: 3px solid black;">{{lp.camera_name}}</td>
+                  <td style="font-family:Courier;font-size:19px;color:black;border: 3px solid black;">{{lp.capture_time}}</td>
+                  <td style="font-family:Courier;font-size:19px;color:black;border: 3px solid black;">{{lp.plate_number}}</td>
+                  <td style="border: 3px solid black;">
                     <img
                       onclick="openFullImage('{% static lp.full_image %}', '{{lp.plate_number}}')"
                       src="{% static lp.image_path %}"
@@ -393,7 +394,7 @@
               }
             </script>
             <button id="trigger-popup" onclick="openMap()" style="font-family:Courier;font-size:18px">Show Map</button>
-            <button style="font-family:Courier;font-size:18px">Smart Search</button>
+            <!--button style="font-family:Courier;font-size:18px">Smart Search</button-->
           </div>
         </div>
       </div>
