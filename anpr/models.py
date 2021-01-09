@@ -17,7 +17,7 @@ class LicensePlates(models.Model):
     fullimage = models.CharField(max_length=100)
 
     class Meta:
-        managed = True
+        #managed = True
         db_table = "license_plates"
 
     def __str__(self):
@@ -33,7 +33,8 @@ class Camera(models.Model):
     plate_threshold = models.DecimalField(max_digits=10, decimal_places=1, default=0.5, help_text="Threshold for Plate Detection.")
     character_threshold = models.DecimalField(max_digits=10, decimal_places=1, default=0.5, help_text="Threshold for Character Detection and Recognition.")
     plate_interval = models.IntegerField(default = 4, help_text="Inference Interval for Plate Detection")
-    roi = models.DecimalField(max_digits=10, decimal_places=2, default=0.60, help_text = "Percentage of ROI(y) for plate detection. 0.6 of 1920x1080 means detections happen only inside (1920,(1-0.6)x1080) = (1920,432).")
+    roi_y = models.IntegerField(default = 540, help_text="ROI_Y")
+    roi_x = models.IntegerField(default = 640, help_text="ROI_X")
     nireq = models.IntegerField(default = 1, help_text="Number of Inference Requests for plate detection. It is usually the number of streams.")
     video_display = models.BooleanField(default=False, help_text="Tick to turn it on. Enables video display with bounding boxes and FPS for debugging purposes. Remember to disable before Deployment.")
     class Meta:
