@@ -173,12 +173,19 @@
       }
       #liveFeed {
         width: 100%;
-        display: flex;
         align-items: center;
         justify-content: center;
         background-color: grey;
         height: 100%;
-        overflow: auto;
+        overflow: hidden;
+      }
+      #feed {
+        overflow: hidden
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        border: 0;
       }
       #cameraSelector {
         width: 100%;
@@ -263,7 +270,7 @@
       </div>
     </div>
     <div class="body-container">
-      <div class="sidenav" style="background: black">
+      <div class="sidenav">
         <div class="company">
           <img class="company-icon" src="{% static 'anpr/images/logo1.png' %}" />
           <!--span class="company-title">ARIMA</span-->
@@ -271,16 +278,16 @@
         <div class="navbar">
           <a style="color: #f1f1f1;"
             ><img src="{% static 'anpr/images/clipboard.png' %}" />
-            <b><span style="font-family:helvetica;font-size:21px;">DASHBOARD</span></b></a
+            <b><span style="font-family:helvetica;font-size:16px;">DASHBOARD</span></b></a
           >
           <a href="{% url 'anpr:plate_search' %}"
             ><img src="{% static 'anpr/images/search4.png' %}" />
-            <b><span style="font-family:helvetica;font-size:21px">PLATESEARCH</span></b></a
+            <b><span style="font-family:helvetica;font-size:16px">PLATESEARCH</span></b></a
           >
           <a
             ><img src="{% static 'anpr/images/car.png' %}" />
             <b><span onclick="alert('This feature has not been unlocked.')"
-              style="font-family:helvetica;font-size:21px">VAAHANSEARCH</span
+              style="font-family:helvetica;font-size:16px">VAAHANSEARCH</span
             ></b></a
           >
         </div>
@@ -292,20 +299,20 @@
             style="flex: 3;border-width:2px;border-style:solid;border-color:black;"
             onclick="toggleView()"
           >
-            <span class="label" style="font-family:helvetica;font-size:22px" ><b>CAMERAS </b></span>
-            <span class="number" style="font-family:helvetica;color:black;font-size:36px">{{cameras|length}}</span>
+            <span class="label" style="font-family:Courier" >CAMERAS </span>
+            <span class="number" style="font-family:Courier;color:black">{{cameras|length}}</span>
             <img src="{% static 'anpr/images/dropdown.png' %}" style="height:30px"/>
           </button>
           <div class="topbar-element" style="flex: 4;border-width:2px;border-style:solid;border-color:black;">
-            <span class="label" style="font-family:helvetica;font-size:22px;color:black"><b>DETECTIONS </b></span>
-            <span id="count" class="number" style="font-family:helvetica;color:black;font-size:36px">{{count}}</span>
+            <span class="label" style="font-family:Courier;color:black">DETECTIONS </span>
+            <span id="count" class="number" style="font-family:Courier;color:black">{{count}}</span>
           </div>
           <div
             class="topbar-element"
             style="flex: 3; border-left: 1px solid black;border-width:2px;border-style:solid;border-color:black;"
           >
-            <span class="label" id="currCamera" style="font-family:helvetica;font-size:24px;color:black"
-              ><b>{{cameras.0.camera_number}}</b></span
+            <span class="label" id="currCamera" style="font-family:Courier;color:black"
+              >{{cameras.0.camera_number}}</span
             >
           </div>
           <!--button class="power-button" type="submit" style="border-width:2px;border-style:solid;border-color:black;">
@@ -316,11 +323,10 @@
           <div id="liveFeed" style="border-width:5px;border-style:solid;border-color:black;">
             <iframe
               id="feed"
-              width="1460"
-              height="720"
               src="http://127.0.0.1:9090/cam.mjpg"
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
               
               
             ></iframe>
@@ -330,7 +336,7 @@
               <div id="listings" class="listings">
                 {% for cam in cameras %}
                 <div id="listing-{{cam.id}}" class="item">
-                  <a href="#" class="title" style="font-family:helvetica;font-size:22px;color:black" id="link-{{cam.id}}"
+                  <a href="#" class="title" style="font-size:20px" id="link-{{cam.id}}"
                     >{{cam.camera_number}}</a
                   >
                 </div>

@@ -4,8 +4,24 @@
     <meta charset="utf-8">
     <title>Embedding a YouTube Video in an HTML Page</title>
 </head>
+<script>
+var frame_loaded = 0;
+function setFrameLoaded()
+{
+   frame_loaded = 1;
+   alert("Iframe is loaded");
+}
+$('#click').click(function(){
+   if(frame_loaded == 1)
+   {
+    console.log('iframe loaded')
+   } else {
+    console.log('iframe not loaded')
+   }
+})
+</script>
 <body>
 	<!--img src="http://127.0.0.1:9090/cam.mjpg"/-->
-<iframe width="560" height="315" src="http://127.0.0.1:9090/cam.mjpg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="http://127.0.0.1:9090/cam.mjpg" onload='setFrameLoaded();' frameborder="5" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </body>
 </html> 
