@@ -257,9 +257,9 @@
           <span class="popup-close-button" onclick="closeModal('modal')"
             >&times;</span
           >
-          <span id="modalLicense" style="font-size: x-large;">TN94657</span>
+          <span id="modalLicense" style="color:black;font-family:helvetica;font-size:30px">TN94657</span>
         </div>
-        <img id="modalImage" width="100%" height="90%" />
+        <img id="modalImage" width="100%" height="90%" style="border: 3px solid black;"/>
       </div>
     </div>
     <div class="body-container">
@@ -313,14 +313,15 @@
           </button-->
         </div>
         <div class="center-content">
-          <div id="liveFeed" style="border-width:5px;border-style:solid;border-color:black;">
+          <div id="liveFeed" style="border-width:5px;border-style:solid;border-color:black;" >
             <iframe
               id="feed"
-              width="1460"
-              height="720"
+              width="1500"
+              height="760"
               src="http://127.0.0.1:9090/cam.mjpg"
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              style="background-image:url({% static 'anpr/images/video-broken.jpg' %})"
               
               
             ></iframe>
@@ -367,7 +368,7 @@
                     icon: myIcon,
                   }).addTo(mymap);
                   var popup = marker.bindPopup(
-                    `<span style="width:100%; text-align:center" >${camera.camera_number}</span>`
+                    `<span style="width:100%; text-align:center; font-family:helvetica; font-size:15px;" >${camera.camera_number}</span>`
                   );
 
                   var onclick = () => {
@@ -410,9 +411,9 @@
             onclick="openFullImage('{% static lp.fullimage %}', '{{lp.number_plate_number}}')"
           >
             <div class="snap">
-              <img src="{% static lp.image %}" width="100%" height="150px" />
+              <img src="{% static lp.image %}" width="100%" height="150px" style="border: 2px solid black;"/>
             </div>
-            <div class="output" style="color:black"><b>{{lp.number_plate_number}}</b></div>
+            <div class="output" style="color:black;font-family:helvetica;border: 2px solid black;font-size:23px"><b>{{lp.number_plate_number}}</b></div>
           </div>
           {% endfor %}
         </div>

@@ -223,7 +223,7 @@
               icon: myIcon,
             }).addTo(mymap);
             var popup = marker.bindPopup(
-              `<div style="flex-direction:column; display:flex; overflow:auto; height: 170px;">${camera.img}${camera.notes}</div>`
+              `<div style="flex-direction:column; display:flex; overflow:auto; height: 170px; font-family:helvetica; font-size:12px; border: 2px solid black">${camera.img}${camera.notes}</div>`
             );
           }
         });
@@ -238,9 +238,9 @@
           <span class="popup-close-button" onclick="closeModal('modal')"
             >&times;</span
           >
-          <span id="modalLicense" style="font-size: x-large;">--EMPTY PLATE--</span>
+          <span id="modalLicense" style="color:black;font-family:helvetica;font-size:30px">--EMPTY PLATE--</span>
         </div>
-        <img id="modalImage" width="100%" height="90%" />
+        <img id="modalImage" width="100%" height="90%" style="border: 3px solid black;"/>
       </div>
     </div>
     <div class="body-container">
