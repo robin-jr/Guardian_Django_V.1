@@ -6,7 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-
+from django.utils import timezone
 
 class LicensePlates(models.Model):
     slno = models.AutoField(primary_key=True)
@@ -26,7 +26,7 @@ class LicensePlates(models.Model):
 
 class Camera(models.Model):
     id = models.AutoField(primary_key=True)
-    camera_number = models.CharField(max_length=100, help_text="Name of the Camera.")
+    camera_number = models.CharField(max_length=100, help_text="Name of the Camera. AVOID SPACES IN THE NAME.")
     latitude = models.DecimalField(max_digits=10, decimal_places=7, help_text="Latitude of the Camera Location.")
     longitude = models.DecimalField(max_digits=10, decimal_places=7, help_text="Longitude of the Camera Location.")
     url = models.CharField(max_length=400, help_text="Functioning RTSP link(rtsp://localhost:8554/ds-test) or Path to Local Video(/home/user/vid.mp4.")

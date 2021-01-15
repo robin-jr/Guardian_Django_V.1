@@ -78,6 +78,7 @@ def latest5(request, camera):
 
 def plate_search(request):
     # get camera name list for dropdown
+    logging.info("Plate Search - Start")
     cameraQuerySet = Camera.objects.all()
     cameras = []
     cam_temp = {}
@@ -97,6 +98,8 @@ def plate_search(request):
         #print("form_data", form_data)
         if len(form_data.keys()) == 0:
             return render(request, "anpr/plate_search.html", {"cameras": cameras})
+            logging.info("Plate Search - End")
+
         try:
             date_time_availability = get_status_date_time(
                 form_data["start_date_time"], form_data["end_date_time"]
@@ -113,6 +116,7 @@ def plate_search(request):
                     license_plates = license_plates_continous_order_plate_number+license_plate_random_order_plate_number
                 else:
                     license_plates = license_plates_continous_order_plate_number
+                logging.info("Plate Search - End")
                 return render(
                     request,
                     "anpr/plate_search.html",
@@ -125,19 +129,21 @@ def plate_search(request):
                 )
         except Exception as e:
             if e.args[0] == "VEHICLE_NO_INVALID":
-                #print("Invalid Data")
+                print("Invalid Data")
                 error = "Vehicle No exists the char limit."
             elif e.args[0] == "DATE_TIME_RANGE_INVALID":
-                #print("Invalid Data")
+                print("Invalid Data")
                 error = "Start Date/Time is greater than End Date/Time."
             else:
-                #print("error", e.args[0])
+                print("error", e.args[0])
                 error = "Oops! Something went wrong."
             logging.error("PLATE SEARCH :"+str(error))
+            logging.info("Plate Search - End")
             return render(
                 request, "anpr/plate_search.html", {"error": error, "cameras": cameras,}
             )
     else:
+        logging.info("Plate Search - End")
         return HttpResponseBadRequest("Bad Request!")
 
 
