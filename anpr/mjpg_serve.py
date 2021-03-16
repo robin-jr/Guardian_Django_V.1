@@ -37,7 +37,8 @@ class CamHandler(BaseHTTPRequestHandler):
 						#    rc,img = captureagain.read()
 						#    captureagain.release()
 					    imgRGB = img#cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
-					    imgRGB = cv2.resize(imgRGB,(1500,760))
+					    #imgRGB = cv2.resize(imgRGB,(1500,760))# For Monitors with 1920x1080 resolution
+					    imgRGB = cv2.resize(imgRGB,(1060,460))
 					    #imgRGB = cv2.resize(imgRGB,(960,380))
 					    r, buf = cv2.imencode(".jpg",imgRGB)
 					    self.wfile.write("--jpgboundary\r\n")
