@@ -20,7 +20,7 @@ if not os.path.exists(logs_dir):# Create Directory if it doesn't exist
     os.makedirs(logs_dir)
 logging.basicConfig(filename=logs_dir+"django.log", level=logging.INFO,
     format=("%(asctime)s - %(levelname)s:%(process)d:%(processName)s:%(filename)s - Function Name:%(funcName)s - Line No:%(lineno)d - %(message)s  "))
-logging.info("STARTED DJANGO SERVER")
+#logging.info("STARTED DJANGO SERVER")
 
 
 # Create your views here.
@@ -137,7 +137,7 @@ def plate_search(request):
             else:
                 print("error", e.args[0])
                 error = "Oops! Something went wrong."
-            logging.error("PLATE SEARCH :"+str(error))
+            logging.error("PLATE SEARCH ERROR:"+str(error))
             logging.info("Plate Search - End")
             return render(
                 request, "anpr/plate_search.html", {"error": error, "cameras": cameras,}
@@ -145,7 +145,7 @@ def plate_search(request):
     else:
         logging.info("Plate Search - End")
         return HttpResponseBadRequest("Bad Request!")
-
+    logging.info("Plate Search - End")
 
 def generate_EXCEL(request):
     form_data = request.GET

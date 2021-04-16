@@ -65,10 +65,10 @@ class CamHandler(BaseHTTPRequestHandler):
 		#	return
 
 def main(camname):
-          global rtsplink
-          global capture
+      global rtsplink
+      global capture
 	  # While loop just in case rtsp link returns error
-	  #while(1):
+      while(1):
 	  # camname is the ip address of the camera that the user selects - camname is passed on from django side
 	  #print("CAM",camname)
 	  #camname = "64"

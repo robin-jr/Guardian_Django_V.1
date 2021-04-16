@@ -102,6 +102,7 @@ def create_excel(filename, contents, headers):
 
                         row_index += 1
                     workbook.close()
+                    logging.info("SEARCH RESULTS DOWNLOADED TO USB")
     else:
         print("Insert USB or Try again") 
         logging.warning("INSERT USB OR TRY AGAIN")

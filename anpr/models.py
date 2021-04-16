@@ -36,9 +36,9 @@ class Camera(models.Model):
     vid_height = models.IntegerField(default = 1080, help_text="Heigth of the Video Resolution.")
 
 
-    plate_threshold = models.DecimalField(max_digits=10, decimal_places=1, default=0.5, help_text="Threshold for Plate Detection.")
-    character_threshold = models.DecimalField(max_digits=10, decimal_places=1, default=0.5, help_text="Threshold for Character Detection and Recognition.")
-    plate_interval = models.IntegerField(default = 4, help_text="Inference Interval for Plate Detection.")
+    plate_threshold = models.DecimalField(max_digits=10, decimal_places=1, default=0.4, help_text="Threshold for Plate Detection.")
+    character_threshold = models.DecimalField(max_digits=10, decimal_places=1, default=0.4, help_text="Threshold for Character Detection and Recognition.")
+    plate_interval = models.IntegerField(default = 5, help_text="Inference Interval for Plate Detection.")
     roi_y_min = models.IntegerField(default = 0, help_text="ROI_Y Minimum value from Top. Inference will happen only in [(xmin,ymin),(xmax,ymin),(xmin,ymax),(xmax,ymax)]-(Origin at the top left corner).")
     roi_x_min = models.IntegerField(default = 0, help_text="ROI_X Minimum value from Left. Inference will happen only in [(xmin,ymin),(xmax,ymin),(xmin,ymax),(xmax,ymax)]-(Origin at the top left corner).")
     roi_y_max = models.IntegerField(default = 1080, help_text="ROI_Y Maximum value from Top. Inference will happen only in [(xmin,ymin),(xmax,ymin),(xmin,ymax),(xmax,ymax)]-(Origin at the top left corner).")
