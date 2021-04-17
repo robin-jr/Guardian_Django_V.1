@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseBadRequest
+from django.db.models.functions import Length
+from django.db.models import Count
 import json
 import os
 #import xlsxwriter
@@ -65,9 +67,29 @@ def index(request):
 def latest5(request, camera):
     #print(camera)
     count = LicensePlates.objects.count()
-    licensePlates = LicensePlates.objects.filter(camera_number=camera).order_by(
-        "-slno"
-    )[:5]
+    licensePlates = LicensePlates.objects.filter(camera_number=camera).order_by("-slno")\
+    .annotate(text_len=Length('number_plate_number')).filter(text_len__gt=5).filter(text_len__lt=12)[:5]
+
+    #https://books.agiliq.com/projects/django-orm-cookbook/en/latest/distinct.html
+    #distinct = LicensePlates.objects.filter(camera_number=camera).values('number_plate_number').distinct()#.order_by("-slno")\
+    #.annotate(text_len=Length('number_plate_number')).filter(text_len__gt=5).values('number_plate_number').\
+    #annotate(name_count=Count('number_plate_number')).filter(name_count=1)
+    #records = User.objects.filter(first_name__in=[item['first_name'] for item in distinct])
+    #licensePlates = LicensePlates.objects.filter(camera_number=camera).order_by("-slno")\
+    #.annotate(text_len=Length('number_plate_number')).filter(text_len__gt=5).\
+    #filter(number_plate_number__in=[item['number_plate_number'] for item in distinct])[:5]#.distinct()[:5]
+    #staff = LicensePlates.objects.all().values('number_plate_number').distinct()
+    #print(staff.query)
+    #for item in staff:
+    #	print("ITEM",item)
+    #print(staff[:5])
+    #ids = licensePlates.values_list('number_plate_number', flat=True).distinct()[:5]																																											
+    #print(ids)
+    #print("Plates",plates)
+    #licensePlates = LicensePlates.objects.filter(camera_number=camera).order_by(
+    #    "-slno"
+    #)[:5]
+    #print(licensePlates)
     for lp in licensePlates:
         lp.image = "anpr/" + lp.image
 
