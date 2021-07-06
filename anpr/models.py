@@ -32,6 +32,8 @@ class Camera(models.Model):
     url = models.CharField(max_length=400, help_text="Functioning RTSP link(rtsp://localhost:8554/ds-test) or Path to Local Video(/home/user/vid.mp4)")
     plate_model = models.CharField(max_length=100, default = "T20-FP16",help_text="Name of the Plate Model. Refer to Accuracy Benchmarking Sheet if needed.")
     char_model = models.CharField(max_length=100, default = "chars-ssd",help_text="Name of the Chars Model. Refer to Accuracy Benchmarking Sheet if needed.")
+    char_model_width = models.IntegerField(default = 304, help_text="Width of the Input to Char Model. Refer to Chars Training Documentation.")
+    char_model_height = models.IntegerField(default = 192, help_text="Heigth of the Input to Char Model. Refer to Chars Training Documentation.")
     vid_width = models.IntegerField(default = 1920, help_text="Width of the Video Resolution.")
     vid_height = models.IntegerField(default = 1080, help_text="Heigth of the Video Resolution.")
 
@@ -44,7 +46,14 @@ class Camera(models.Model):
     roi_y_max = models.IntegerField(default = 1080, help_text="ROI_Y Maximum value from Top. Inference will happen only in [(xmin,ymin),(xmax,ymin),(xmin,ymax),(xmax,ymax)]-(Origin at the top left corner).")
     roi_x_max = models.IntegerField(default = 1980, help_text="ROI_X Maximum value from Left. Inference will happen only in [(xmin,ymin),(xmax,ymin),(xmin,ymax),(xmax,ymax)]-(Origin at the top left corner).")
     nireq = models.IntegerField(default = 1, help_text="Number of Inference Requests for plate detection. It is usually the number of streams.")
+
+    object_tracking = models.CharField(max_length=100, default = "short-term",help_text="short-term/zero-term/off - Enable Object Tracking.")
+    post_processing_method = models.IntegerField(default = 15, help_text="Post-processing Method - 1 to 21. Refer to AB2 for details.")
+    cluster_end = models.IntegerField(default = 30, help_text="Y-axis value beyond which we delcare that vehicle has passed and the cluster has ended. 0 means vehicle reached top end of ROI- but then full image of vehicle will be missed. So a value of 10-30 is ideal.")
+
     video_display = models.BooleanField(default=False, help_text="Tick to turn it on. Enables video display with bounding boxes and FPS for debugging purposes. Remember to disable before Deployment.")
+    
+
     class Meta:
         #managed = True
         db_table = "camera_config"
