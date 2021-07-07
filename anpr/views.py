@@ -48,8 +48,8 @@ def index(request):
     licensePlates = LicensePlates.objects.filter(
         camera_number=cameras[0]["camera_number"]
     ).order_by("-slno")[:5]
-    for lp in licensePlates:
-        lp.image = "anpr/" + lp.image
+    #for lp in licensePlates:
+    #    lp.image = "anpr/" + lp.image
 
     return render(
         request,
@@ -90,8 +90,8 @@ def latest5(request, camera):
     #    "-slno"
     #)[:5]
     #print(licensePlates)
-    for lp in licensePlates:
-        lp.image = "anpr/" + lp.image
+    #for lp in licensePlates:
+    #    lp.image = "anpr/" + lp.image
 
     return render(
         request, "anpr/latest5.html", {"licensePlates": licensePlates, "count": count}

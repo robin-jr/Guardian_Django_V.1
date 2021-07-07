@@ -57,7 +57,7 @@ def get_filtered_data(form_data, date_time_availability, criteria_order):
         temp_lp["capture_time"] = lp.date.astimezone(pytz.timezone("Asia/Kolkata"))
         #print("lp.date", lp.slno, lp.number_plate_number, temp_lp["capture_time"])
         temp_lp["plate_number"] = lp.number_plate_number
-        temp_lp["image_path"] = "anpr/" + lp.image
+        temp_lp["image_path"] = lp.image#"anpr/" + lp.image
         temp_lp["full_image"] = lp.fullimage
         if criteria_order == "continuous":
             license_plates.append(temp_lp)
