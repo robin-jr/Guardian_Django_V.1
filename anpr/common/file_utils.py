@@ -45,7 +45,7 @@ def create_excel(filename, contents, headers):
                     # initializing
                     row_index = 0
                     col_index = 0
-                    prefix_path = django_dir + "anpr/static/"
+                    prefix_path = "/home/user/static/"#django_dir + "anpr/static/"
 
                     # writing the headings
                     cell_format = workbook.add_format({"bold": True, "align": "center", "font_size": 15})

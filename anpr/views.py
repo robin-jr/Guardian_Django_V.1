@@ -4,7 +4,7 @@ from django.db.models.functions import Length
 from django.db.models import Count
 import json
 import os
-#import xlsxwriter
+import xlsxwriter
 import PIL.Image as Image
 from .models import LicensePlates, Camera
 from .common.validators import is_valid, get_status_date_time
