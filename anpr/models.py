@@ -49,7 +49,13 @@ class Camera(models.Model):
 
     object_tracking = models.CharField(max_length=100, default = "short-term",help_text="short-term/zero-term/off - Enable Object Tracking.")
     post_processing_method = models.IntegerField(default = 15, help_text="Post-processing Method - 1 to 21. Refer to AB2 for details.")
-    cluster_end = models.IntegerField(default = 30, help_text="Y-axis value beyond which we delcare that vehicle has passed and the cluster has ended. 0 means vehicle reached top end of ROI- but then full image of vehicle will be missed. So a value of 10-30 is ideal.")
+    cluster_end = models.IntegerField(default = 30, help_text="Y-axis value beyond which we delcare that vehicle has passed and the cluster has ended. 0 means end of ROI- but then full image of vehicle will be missed. So a value of 20-60 is ideal i.e, save image when plate is at 20 pixels away from top x-axis. This is the same as RLVD. Set it to 0 to disable this.")
+    cluster_end_vehicle = models.IntegerField(default = 10, help_text="Number of plates in a vehicle cluster beyond which we declare that the cluster has ended and start post-processing. This feature is EXPERIMENTAL and was added to handle STATIC VEHICLES. A value of 10 means, if 10 plates are detected in a vehicle cluster, then plate detection is stopped and post-processing starts. Set it to a high value(100) to disable. Both cluster_end and cluster_end_vehicle are used to end clusters.")
+
+
+    extras = models.IntegerField(default = -3, help_text="Extra pixels that we manually add to the cropped plate. Increasing this leads to coloured boundingbox in saved image. This is a potential bug - have to change gvawatermark if needed.")
+    full_image_save_quality = models.IntegerField(default = 20, help_text="Cv2.Write Quaility of Image.Lesser the quality, lesser the storage space needed. Range of 0-99.")
+    cropped_image_save_quality = models.IntegerField(default = 60, help_text="Cv2.Write Quaility of Image.Lesser the quality, lesser the storage space needed. Range of 0-99.")
 
     video_display = models.BooleanField(default=False, help_text="Tick to turn it on. Enables video display with bounding boxes and FPS for debugging purposes. Remember to disable before Deployment.")
     
@@ -60,3 +66,20 @@ class Camera(models.Model):
 
     def __str__(self):
         return self.camera_number
+
+
+class GuardianParameters(models.Model):
+
+    id = models.AutoField(primary_key=True)
+    records_deletion_days = models.IntegerField(default = 10, help_text="Number of days of Records to be present in the Database.")
+    images_deletion_days = models.IntegerField(default = 7, help_text="Number of days of Images to present in the Device.")
+
+
+
+    class Meta:
+        #managed = True
+        verbose_name = 'GuardianParameter'
+        db_table = "guardian_parameters"
+
+    def __str__(self):
+        return "Parameters"
