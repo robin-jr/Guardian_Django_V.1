@@ -37,6 +37,10 @@ class Camera(models.Model):
     vid_width = models.IntegerField(default = 1920, help_text="Width of the Video Resolution.")
     vid_height = models.IntegerField(default = 1080, help_text="Heigth of the Video Resolution.")
 
+    char_det_model = models.CharField(max_length=100, default = "CD2-FP32",help_text="Path to an .xml file with char detection model alone. Refer to Accuracy Benchmarking Sheet if needed.")
+    char_recog_model = models.CharField(max_length=100, default = "CR1",help_text="Path to an .h5 and .json file with char recognition model alone. Refer to Accuracy Benchmarking Sheet if needed.")
+    char_split = models.BooleanField(default=False, help_text="Tick to turn it on. Enables char model split into detection and recognition")
+
 
     plate_threshold = models.DecimalField(max_digits=10, decimal_places=1, default=0.4, help_text="Threshold for Plate Detection.")
     character_threshold = models.DecimalField(max_digits=10, decimal_places=1, default=0.4, help_text="Threshold for Character Detection and Recognition.")
@@ -51,6 +55,7 @@ class Camera(models.Model):
     post_processing_method = models.IntegerField(default = 15, help_text="Post-processing Method - 1 to 21. Refer to AB2 for details.")
     cluster_end = models.IntegerField(default = 30, help_text="Y-axis value beyond which we delcare that vehicle has passed and the cluster has ended. 0 means end of ROI- but then full image of vehicle will be missed. So a value of 20-60 is ideal i.e, save image when plate is at 20 pixels away from top x-axis. This is the same as RLVD. Set it to 0 to disable this.")
     cluster_end_vehicle = models.IntegerField(default = 10, help_text="Number of plates in a vehicle cluster beyond which we declare that the cluster has ended and start post-processing. This feature is EXPERIMENTAL and was added to handle STATIC VEHICLES. A value of 10 means, if 10 plates are detected in a vehicle cluster, then plate detection is stopped and post-processing starts. Set it to a high value(100) to disable. Both cluster_end and cluster_end_vehicle are used to end clusters.")
+    no_of_active_vehicles = models.IntegerField(default = 3, help_text="Number of vehilces in the done_tracking_ids at a time. Rest will be popped to clear repetition of ids. This parameter was added to counter choppiness.")
 
 
     extras = models.IntegerField(default = -3, help_text="Extra pixels that we manually add to the cropped plate. Increasing this leads to coloured boundingbox in saved image. This is a potential bug - have to change gvawatermark if needed.")
