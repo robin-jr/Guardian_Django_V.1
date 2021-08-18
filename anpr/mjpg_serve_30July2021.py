@@ -110,7 +110,7 @@ def main(camname):
 	    
 	  #Starting new HTTP Server for our stream  
           try:
-                server = HTTPServer(('192.168.1.102',9090),CamHandler)
+                server = HTTPServer(('',9090),CamHandler)
                 print ("Server Started") 
                 server.serve_forever()
           except Exception as e:

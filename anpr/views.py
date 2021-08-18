@@ -234,7 +234,7 @@ def convertRtspToHttp(request,camera):
     # except Exception as e:
     #     print("Exception while killing",str(e))
     print("Views Camname", camera)
-    pid = Popen(['python',django_dir+'anpr/mjpg_serve.py',camera])#watch', 'ls'])
+    #pid = Popen(['python',django_dir+'anpr/mjpg_serve.py',camera])#watch', 'ls'])
     #print("Process id",pid)
     #os.system("python /home/user/mountedSDCard/Django_Anpr-master/anpr/mjpg_serve.py")
     #actualConvert(camera)
